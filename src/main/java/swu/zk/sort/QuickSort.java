@@ -8,7 +8,7 @@ import java.util.Stack;
 
 /**
  * @Classname QuickSort
- * @Description 快速排序
+ * @Description 快速排序  快排与冒泡的区别
  * @Date 2022/5/3 9:13
  * @Created by brain
  */
