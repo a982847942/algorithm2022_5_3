@@ -80,13 +80,13 @@ public class BaseOperation {
 
 
     /**
-     * 打印单链表
+     * 打印单链表  head不应该是guard结点
      * @param head
      */
 
     public static void printLinkedList(ListNode head) {
         if (head == null) return;
-        ListNode temp = head.next;
+        ListNode temp = head;
         while (temp != null) {
             System.out.print(temp.value + " ");
             temp = temp.next;
@@ -100,7 +100,7 @@ public class BaseOperation {
      */
     public static void printDoubleLinkedList(DoubleListNode head) {
         if (head == null) return;
-        DoubleListNode temp = head.next;
+        DoubleListNode temp = head;
         while (temp != null){
             System.out.print(temp.value + " ");
             temp = temp.next;
