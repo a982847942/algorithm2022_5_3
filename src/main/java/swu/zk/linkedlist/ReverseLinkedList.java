@@ -51,7 +51,7 @@ public class ReverseLinkedList {
 
     /**
      * 反转双向链表
-     *
+     *三指针法
      * @param head
      * @return
      */
