@@ -2,6 +2,7 @@ package swu.zk.tree;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @Classname TraversalBT
@@ -251,6 +252,21 @@ public class TraversalBT {
     }
 
 
+    public static void level(BinaryTreeNode root){
+        if (root == null) return;
+        Queue<BinaryTreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            BinaryTreeNode node = queue.poll();
+            System.out.print(node.value + " ");
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+        System.out.println();
+    }
+
+
+
     public static void main(String[] args) {
 //        String s  = "123###45##6##";
 //        BinaryTreeNode root = BTUtil.createBinaryTree(s.toCharArray());
@@ -274,5 +290,6 @@ public class TraversalBT {
         morrisPre(root);
         morrisIn(root);
         morrisPos(root);
+        level(root);
     }
 }

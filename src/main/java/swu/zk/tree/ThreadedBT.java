@@ -2,7 +2,7 @@ package swu.zk.tree;
 
 /**
  * @Classname ThreadedBT
- * @Description TODO
+ * @Description 线索二叉树
  * @Date 2022/5/9 11:42
  * @Created by brain
  */
