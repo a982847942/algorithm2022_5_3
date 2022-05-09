@@ -9,15 +9,20 @@ package swu.zk.linkedlist;
 public class FindFirstIntersectNode {
     public static ListNode getIntersectNode(ListNode head1, ListNode head2) {
         if (head1 == null || head2 == null) return null;
+        //1.判断链表是否有环
         ListNode loopNode1 = getLoopNode(head1);
         ListNode loopNode2 = getLoopNode(head2);
+        //情况一： 两个链表都没有环
         if (loopNode1 == null && loopNode2 == null) {
             return noLoop2(head1, head2);
         }
+        //情况二: 两个链表都有环
+        //1.两个链表的入环结点相同   2.两个链表入环结点不同  3.两个链表不相交
         if (loopNode1 != null && loopNode2 != null) {
             return bothLoop(loopNode1, head1, loopNode2, head2);
         }
 
+        //情况三：一个有环  一个无环 则必然不可能相交
         return null;
     }
 

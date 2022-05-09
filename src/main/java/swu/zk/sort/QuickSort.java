@@ -71,7 +71,6 @@ public class QuickSort {
         int pivot = originArr[left];
         int lessIndex = left;
         int moreIndex = right;
-        int curIndex = left;
         while (lessIndex != moreIndex){
             while (originArr[moreIndex] >= pivot && lessIndex < moreIndex) moreIndex--;
             while (originArr[lessIndex] <= pivot && lessIndex < moreIndex) lessIndex++;
