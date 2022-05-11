@@ -70,6 +70,16 @@ public class BTUtil {
         return head;
     }
 
+    public static int getBinaryTreeHeight(BinaryTreeNode root){
+        if (root == null) return 0;
+        return Math.max(getBinaryTreeHeight(root.left),getBinaryTreeHeight(root.right)) + 1;
+    }
+
+    public static int getBinaryTreeNodes(BinaryTreeNode root){
+        if (root == null) return 0;
+        return getBinaryTreeNodes(root.left) + getBinaryTreeNodes(root.right) + 1;
+    }
+
     public static void main(String[] args) {
 //        BinaryTreeNode root = new BinaryTreeNode();
 //        createBinaryTree(root);
