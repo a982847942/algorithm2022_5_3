@@ -133,7 +133,6 @@ public class FindCircleNum {
                 sets--;
             }
         }
-
         public Integer sets(){
             return sets;
         }
