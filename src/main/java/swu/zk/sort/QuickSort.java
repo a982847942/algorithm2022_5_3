@@ -14,56 +14,58 @@ import java.util.Stack;
  */
 public class QuickSort {
 
-    private static void quickSort2(int[] originArr){
+    private static void quickSort2(int[] originArr) {
         if (originArr == null || originArr.length < 2) return;
-        doQucikSort2(originArr,0,originArr.length - 1);
+        doQucikSort2(originArr, 0, originArr.length - 1);
     }
 
-    private static void doQucikSort2(int[] originArr,int left,int right) {
+    private static void doQucikSort2(int[] originArr, int left, int right) {
         if (left >= right) return;
-        ArrayUtil.swap(originArr,left + (int) ((right - left)*Math.random()),right);
-        int[] equalArea = netherlandsFlag(originArr,left,right);
-        doQucikSort2(originArr,left,equalArea[0] - 1);
-        doQucikSort2(originArr,equalArea[1] + 1,right);
+        ArrayUtil.swap(originArr, left + (int) ((right - left) * Math.random()), right);
+        int[] equalArea = netherlandsFlag(originArr, left, right);
+        doQucikSort2(originArr, left, equalArea[0] - 1);
+        doQucikSort2(originArr, equalArea[1] + 1, right);
     }
 
     /**
      * 荷兰国旗问题
+     *
      * @param originArr
      * @param left
      * @param right
      * @return
      */
     private static int[] netherlandsFlag(int[] originArr, int left, int right) {
-        if (left > right)return new int[]{-1,-1};
-        if (left == right) return new int[]{left,left};
+        if (left > right) return new int[]{-1, -1};
+        if (left == right) return new int[]{left, left};
 
         int lowIndex = left - 1;
         int highIndex = right;
         int curIndex = left;
         int temp = originArr[right];
-        while (curIndex < highIndex){
-            if (originArr[curIndex] < temp){
-                ArrayUtil.swap(originArr,++lowIndex,curIndex++);
-            }else if (originArr[curIndex] > temp){
-               ArrayUtil.swap(originArr,curIndex,--highIndex);
-            }else {
+        while (curIndex < highIndex) {
+            if (originArr[curIndex] < temp) {
+                ArrayUtil.swap(originArr, ++lowIndex, curIndex++);
+            } else if (originArr[curIndex] > temp) {
+                ArrayUtil.swap(originArr, curIndex, --highIndex);
+            } else {
                 curIndex++;
             }
         }
-        ArrayUtil.swap(originArr,highIndex,right);
-        return new int[]{lowIndex + 1,highIndex};
+        ArrayUtil.swap(originArr, highIndex, right);
+        return new int[]{lowIndex + 1, highIndex};
     }
 
 
     /**
      * 这种划分方法 得到的结果是 左边<= pivot  右边 >= pivot 对于有重复值的数据而言，存在重复行为。
      * 借用荷兰国旗问题的方法，一次划分一个区间。然后再加上随机化操作，合理选取初始值。
+     *
      * @param originArr
      */
-    private static void quickSort(int[] originArr){
+    private static void quickSort(int[] originArr) {
         if (originArr == null || originArr.length < 2) return;
-        doQucikSort(originArr,0,originArr.length - 1);
+        doQucikSort(originArr, 0, originArr.length - 1);
     }
 
     private static void doQucikSort(int[] originArr, int left, int right) {
@@ -71,15 +73,15 @@ public class QuickSort {
         int pivot = originArr[left];
         int lessIndex = left;
         int moreIndex = right;
-        while (lessIndex != moreIndex){
+        while (lessIndex != moreIndex) {
             while (originArr[moreIndex] >= pivot && lessIndex < moreIndex) moreIndex--;
             while (originArr[lessIndex] <= pivot && lessIndex < moreIndex) lessIndex++;
-            ArrayUtil.swap(originArr,lessIndex,moreIndex);
+            ArrayUtil.swap(originArr, lessIndex, moreIndex);
         }
         originArr[left] = originArr[lessIndex];
         originArr[lessIndex] = pivot;
-        doQucikSort2(originArr,left,lessIndex - 1);
-        doQucikSort2(originArr,lessIndex + 1,right);
+        doQucikSort2(originArr, left, lessIndex - 1);
+        doQucikSort2(originArr, lessIndex + 1, right);
     }
 
 
@@ -123,18 +125,24 @@ public class QuickSort {
         }
     }
 
+
+
     public static void main(String[] args) {
+//        int[] ints = {5, 6, 8, 9, 2, 0, 1, 4};
+//        p(ints);
+//        System.out.println(Arrays.toString(ints));
+
         int testTimes = 50000;
         int maxValue = 100;
         int maxSize = 100;
-        TimeUtil.getTime(()->{
+        TimeUtil.getTime(() -> {
             boolean success = true;
             for (int i = 0; i < testTimes; i++) {
                 int[] arr1 = ArrayUtil.generateRandomArray(maxSize, maxValue);
                 int[] arr2 = ArrayUtil.copyArr(arr1);
-                quickSort3(arr1);
+                quickSort(arr1);
                 Arrays.sort(arr2);
-                if (!ArrayUtil.isEqual(arr1, arr2)){
+                if (!ArrayUtil.isEqual(arr1, arr2)) {
                     success = false;
                     ArrayUtil.printArray(arr1);
                     ArrayUtil.printArray(arr2);
