@@ -22,7 +22,11 @@ public class Sunday {
         int sourceLen = source.length();
         int patternLen = pattern.length();
 
-        //预处理移动数组
+        /**
+         *   预处理移动数组
+         * 缺点：
+         * 字符集太大的话很浪费空间
+         */
         int[] move = new int[maxNum];
         for (int i = 0; i < maxNum; i++) {
             move[i] = patternLen + 1;
