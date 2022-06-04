@@ -7,12 +7,100 @@ import java.util.Queue;
 
 /**
  * @Classname ACAutomatic
- * @Description
- * 多模式串匹配算法-----AC自动机
+ * @Description 多模式串匹配算法-----AC自动机
  * @Date 2022/5/30 17:59
  * @Created by brain
  */
 public class ACAutomatic {
+
+    public static class ACNode {
+        public String end;
+        public boolean endUse;
+        public ACNode fail;
+        public ACNode[] nexts;
+
+        public ACNode() {
+            nexts = new ACNode[26];
+        }
+    }
+
+    public static class AC {
+        public ACNode root;
+
+        public AC() {
+            root = new ACNode();
+        }
+
+        public void insert(String s) {
+            if (s == null) return;
+            char[] str = s.toCharArray();
+            ACNode cur = root;
+            int index = 0;
+            for (int i = 0; i < str.length; i++) {
+                index = str[i] - 'a';
+                if (cur.nexts[index] == null) {
+                    cur.nexts[index] = new ACNode();
+                }
+                cur = cur.nexts[index];
+            }
+            cur.end = s;
+        }
+
+        public void build() {
+            Queue<ACNode> queue = new LinkedList<>();
+            queue.add(root);
+            ACNode cur = null;
+            ACNode parentFail = null;
+            while (!queue.isEmpty()) {
+                cur = queue.poll();
+                for (int i = 0; i < 26; i++) {
+                    if (cur.nexts[i] != null) {
+                        cur.nexts[i].fail = root;
+                        parentFail = cur.fail;
+                        while (parentFail != null) {
+                            if (parentFail.nexts[i] != null) {
+                                cur.nexts[i].fail = parentFail.nexts[i];
+                                break;
+                            }
+                            parentFail = parentFail.fail;
+                        }
+                        queue.add(cur.nexts[i]);
+                    }
+                }
+            }
+        }
+
+
+        public List<String> containWords(String content) {
+            List<String> result = new ArrayList<>();
+            char[] contentArr = content.toCharArray();
+            int index = 0;
+            ACNode cur = root;
+            ACNode follow = root;
+            for (int i = 0; i < contentArr.length; i++) {
+                index = contentArr[i] - 'a';
+                while (cur.nexts[index] == null && cur != root) {
+                    cur = cur.fail;
+                }
+                cur = cur.nexts[index] != null ? cur.nexts[index] : root;
+                follow = cur;
+                while (follow != root) {
+                    if (follow.endUse) {
+                        break;
+                    }
+                    if (follow.end != null) {
+                        result.add(follow.end);
+                        follow.endUse = true;
+                    }
+                    follow = follow.fail;
+                }
+            }
+            return result;
+        }
+
+    }
+
+
     // 前缀树的节点
     public static class Node {
         // 如果一个node，end为空，不是结尾
@@ -115,7 +203,7 @@ public class ACAutomatic {
     }
 
     public static void main(String[] args) {
-        ACAutomation ac = new ACAutomation();
+        AC ac = new AC();
         ac.insert("dhe");
         ac.insert("he");
         ac.insert("abcdheks");
