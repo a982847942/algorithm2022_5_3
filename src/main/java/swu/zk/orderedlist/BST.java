@@ -38,7 +38,7 @@ public class BST {
     }
 
 
-    public static class BSTree<K, V> {
+    public static class BSTree<K, V> implements OrderList<K,V> {
         private BSTNode<K, V> root;
         private Comparator<K> comparator;
         private int size;
