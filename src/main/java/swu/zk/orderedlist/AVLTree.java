@@ -5,6 +5,7 @@ import java.util.Comparator;
 /**
  * @Classname AVL
  * @Description
+ * 使用递归实现AVL树，复杂度控制在LogN，正常情况下不会产生栈溢出。
  * @Date 2022/5/3 16:38
  * @Created by brain
  */
