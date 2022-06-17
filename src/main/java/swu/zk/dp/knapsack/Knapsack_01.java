@@ -107,6 +107,22 @@ public class Knapsack_01 {
         return dp[C];
     }
 
+    /**
+     *这里没有使用哨兵 也可以不用初始化
+     * 是因为第0个物品 也是从后向前进行的，不用担心计算j时 j -temp 结果的影响
+     * 比如第0行开始时  dp都是0  因此 相当于对第0行进行了初始化
+     */
+    public static int maxValue6(int N, int C, int[] v, int[] w) {
+        int[] dp = new int[C + 1];
+        for (int i = 0; i < N; i++) {
+            int temp = v[i];
+            for (int j = C; j >= temp; j--) {
+                dp[j] = Math.max(dp[j],dp[j - temp] + w[i]);
+            }
+        }
+        return dp[C];
+    }
+
 
     /**
      *dp[i][j] 表示考虑第i个物品往后的所有物品在容量为j的时候 能获取的最大价值
@@ -134,13 +150,14 @@ public class Knapsack_01 {
 
 
     public static void main(String[] args) {
-        int N = 3, V = 5;
-        int[] v = {4, 2, 3};
-        int[] w = {4, 2, 3};
+        int N = 3, V = 10;
+        int[] v = {4, 3, 8};
+        int[] w = {4, 3, 8};
         System.out.println(maxValue1(N, V, v, w));
         System.out.println(maxValue2(N, V, v, w));
         System.out.println(maxValue3(N, V, v, w));
         System.out.println(maxValue4(N, V, v, w));
         System.out.println(maxValue5(N, V, v, w));
+        System.out.println(maxValue6(N, V, v, w));
     }
 }
