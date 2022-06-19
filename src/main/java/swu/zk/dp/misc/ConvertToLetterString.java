@@ -17,6 +17,7 @@ public class ConvertToLetterString {
         return process(sc,0);
     }
 
+    //0..cur - 1 已经排好，现在考虑cur开始位置的排列方法
     private static int process(char[] str, int cur) {
         if (cur == str.length) return 1;
         if (str[cur] == '0') return 0;
